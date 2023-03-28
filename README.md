@@ -4,7 +4,7 @@
 
 <img src="image/image.png" width="600">
 
-## Copyrigth
+## Copyright
 [Le Xuan Quynh](https://github.com/lexuanquynh)
 
 ## License
