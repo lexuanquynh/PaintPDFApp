@@ -19,18 +19,23 @@ enum DrawingTool: Int {
     case eraser = 7
     
     var width: CGFloat {
+        let userDefault = UserDefaults.standard
         switch self {
         case .pencil:
-            return 1
+            // get from userdefault
+            let width = userDefault.float(forKey: "pencilWidth")
+            return CGFloat(width)
         case .pen:
-            return 5
+            let width = userDefault.float(forKey: "penWidth")
+            return CGFloat(width)
         case .highlighter:
-            return 10
+            let width = userDefault.float(forKey: "highlighterWidth")
+            return CGFloat(width)
         default:
             return 0
         }
     }
-    
+
     var alpha: CGFloat {
         switch self {
         case .highlighter:
@@ -49,6 +54,47 @@ class PDFDrawer {
     private var currentPage: PDFPage?
     var color = UIColor.red // default color is red
     var drawingTool = DrawingTool.pen
+
+    init() {
+        // save default value for width
+        let userDefault = UserDefaults.standard
+        userDefault.set(1, forKey: "pencilWidth")
+        userDefault.set(10, forKey: "penWidth")
+        userDefault.set(10, forKey: "highlighterWidth")
+        userDefault.set(10, forKey: "eraserWidth")
+    }
+
+    func setWith(width: Float) {
+        let userDefault = UserDefaults.standard
+        switch drawingTool {
+        case .pencil:
+            userDefault.set(width, forKey: "pencilWidth")
+        case .pen:
+            userDefault.set(width, forKey: "penWidth")
+        case .highlighter:
+            userDefault.set(width, forKey: "highlighterWidth")
+        case .eraser:
+            userDefault.set(width, forKey: "eraserWidth")
+        default:
+            break
+        }
+    }
+
+    func getWith() -> Float {
+        let userDefault = UserDefaults.standard
+        switch drawingTool {
+        case .pencil:
+            return userDefault.float(forKey: "pencilWidth")
+        case .pen:
+            return userDefault.float(forKey: "penWidth")
+        case .highlighter:
+            return userDefault.float(forKey: "highlighterWidth")
+        case .eraser:
+            return userDefault.float(forKey: "eraserWidth")
+        default:
+            return 0
+        }
+    }
 }
 
 extension PDFDrawer: DrawingGestureRecognizerDelegate {
@@ -63,9 +109,7 @@ extension PDFDrawer: DrawingGestureRecognizerDelegate {
     func gestureRecognizerMoved(_ location: CGPoint) {
         guard let page = currentPage else { return }
         let convertedPoint = pdfView.convert(location, to: page)
-        
-        print(convertedPoint)
-        
+              
         if drawingTool == .eraser {
             removeAnnotationAtPoint(point: convertedPoint, page: page)
             return

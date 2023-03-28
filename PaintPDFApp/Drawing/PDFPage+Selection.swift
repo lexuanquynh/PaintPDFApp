@@ -10,11 +10,12 @@ import PDFKit
 
 extension PDFPage {
     func annotationWithHitTest(at: CGPoint) -> PDFAnnotation? {
-        for annotation in annotations {
-                if annotation.contains(point: at) {
-                return annotation
+           let annotations = self.annotations
+            for annotation in annotations {
+                if annotation.bounds.contains(at) {
+                    return annotation
+                }
             }
-        }
-        return nil
+            return nil
     }
 }

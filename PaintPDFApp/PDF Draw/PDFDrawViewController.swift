@@ -64,19 +64,22 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
         }
     }
         
-    @IBAction func changeDrawingTool(sender: UIBarButtonItem) {
-        print("sender tag = \(sender.tag)")
-//        let drawingTool = DrawingTool(rawValue: sender.tag)
+    @IBAction func changeDrawingTool(sender: UIBarButtonItem) {     
         toolbarItems?.forEach({ item in
             item.style = .plain
         })
         
         sender.style = .done
         pdfDrawer.drawingTool = DrawingTool(rawValue: sender.tag)!
+        // load default size
+        sizeSlider.value = pdfDrawer.getWith()
+        // update to label
+        sizeLabel.text = "\(Int(sizeSlider.value))"
     }
     
     @IBAction func onSizeChanged(_ sender: UISlider) {
         sizeLabel.text = "\(Int(sender.value))"
+        pdfDrawer.setWith(width: Float(sizeSlider.value))
     }
     
     @IBAction func onColorSelected(_ sender: UIButton) {
