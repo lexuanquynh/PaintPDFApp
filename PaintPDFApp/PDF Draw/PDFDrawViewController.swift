@@ -27,7 +27,7 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
     }
     
     private func setupUI() {
-        sizeSlider.minimumValue = 10
+        sizeSlider.minimumValue = 1
         sizeSlider.maximumValue = 100
         sizeLabel.text = "\(Int(sizeSlider.value))"
     }
@@ -64,7 +64,7 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
         }
     }
         
-    @IBAction func changeDrawingTool(sender: UIBarButtonItem) {     
+    @IBAction func changeDrawingTool(sender: UIBarButtonItem) {
         toolbarItems?.forEach({ item in
             item.style = .plain
         })
@@ -150,7 +150,7 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
     }
 }
 
-// EditorColorPickerViewControllerDelegate
+// MARK: EditorColorPickerViewControllerDelegate
 extension PDFDrawViewController {
     func onColorSelected(color: UIColor) {
         // set color for colorButton
@@ -159,7 +159,7 @@ extension PDFDrawViewController {
     }
 }
 
-// UIDocumentPickerDelegate
+// MARK: UIDocumentPickerDelegate
 extension PDFDrawViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
