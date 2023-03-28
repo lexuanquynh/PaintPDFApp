@@ -122,13 +122,13 @@
                     </constraints>
                     <items>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="OZ7-gG-H04"/>
-                        <barButtonItem tag="1" title="Import PDF" id="dBP-Tp-qt8">
+                        <barButtonItem tag="9" title="Import PDF" id="dBP-Tp-qt8">
                             <connections>
                                 <action selector="onChangeTopTool:" destination="-1" id="2aL-Ss-0k2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="e08-nm-3fn"/>
-                        <barButtonItem tag="2" title="Export PDF" id="J8G-Ti-O4A">
+                        <barButtonItem tag="10" title="Export PDF" id="J8G-Ti-O4A">
                             <connections>
                                 <action selector="onChangeTopTool:" destination="-1" id="MRY-LB-CXU"/>
                             </connections>

@@ -55,7 +55,11 @@ class EditorColorPickerViewController: UIViewController {
     // onTap to get color
     @objc func onTap(sender: UITapGestureRecognizer) {
         let point = sender.location(in: imageView)
-        let color = imageView.image?.getPixelColor(pos: point)        
+        // convert point to pixel position
+        let pixelX = point.x * imageView.image!.size.width / imageView.frame.width
+        let pixelY = point.y * imageView.image!.size.height / imageView.frame.height
+        let point1 = CGPoint(x: pixelX, y: pixelY)
+        let color = imageView.image?.getPixelColor(pos: point1)
         // call delegate
         self.delegate?.onColorSelected(color: color ?? .black)
         self.dismiss(animated: true, completion: nil)

@@ -17,6 +17,7 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
     @IBOutlet weak var thumbnailViewContainer: UIView!
     
     private var shouldUpdatePDFScrollPosition = true
+    private let pdfDrawer = PDFDrawer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +43,36 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
         thumbnailView.thumbnailSize = CGSize(width: 100, height: 100)
         thumbnailView.layoutMode = .vertical
         thumbnailView.backgroundColor = thumbnailViewContainer.backgroundColor
+        
+        navigationController?.isToolbarHidden = false
+        
+        let pdfDrawingGestureRecognizer = DrawingGestureRecognizer()
+        pdfView.addGestureRecognizer(pdfDrawingGestureRecognizer)
+        pdfDrawingGestureRecognizer.drawingDelegate = pdfDrawer
+        pdfDrawer.pdfView = pdfView
+        
+        // for test
+        readLocalPDF()
     }
-    
+
+    private func readLocalPDF() {
+        // read pdf from local with name "pdfdemo"
+        if let path = Bundle.main.url(forResource: "pdfdemo", withExtension: "pdf") {
+            if let document = PDFDocument(url: path) {
+                pdfView.document = document
+            }
+        }
+    }
+        
     @IBAction func changeDrawingTool(sender: UIBarButtonItem) {
         print("sender tag = \(sender.tag)")
+//        let drawingTool = DrawingTool(rawValue: sender.tag)
+        toolbarItems?.forEach({ item in
+            item.style = .plain
+        })
+        
+        sender.style = .done
+        pdfDrawer.drawingTool = DrawingTool(rawValue: sender.tag)!
     }
     
     @IBAction func onSizeChanged(_ sender: UISlider) {
@@ -69,13 +96,13 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
         case .importPDF:
             self.importPDF()
         case .exportPDF:
-            self.exportPDF()
+            self.exportPDF(sender)
         }
     }
     
     enum TopTool: Int {
-        case importPDF = 1
-        case exportPDF = 2
+        case importPDF = 9
+        case exportPDF = 10
     }
 
     // This code is required to fix PDFView Scroll Position when NOT using pdfView.usePageViewController(true)
@@ -111,11 +138,12 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
         self.present(documentPicker, animated: true, completion: nil)
     }
 
-    private func exportPDF() {
-        // show document picker
-//        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], in: .exportToService)
-//        documentPicker.delegate = self
-//        self.present(documentPicker, animated: true, completion: nil)
+    private func exportPDF(_ sender: UIBarButtonItem) {
+        // export pdf for sharing
+        let pdfData = pdfView.document?.dataRepresentation()
+        let activityViewController = UIActivityViewController(activityItems: [pdfData!], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.barButtonItem = sender
+        self.present(activityViewController, animated: true, completion: nil)
     }
 }
 
@@ -124,6 +152,7 @@ extension PDFDrawViewController {
     func onColorSelected(color: UIColor) {
         // set color for colorButton
         colorButton.backgroundColor = color
+        pdfDrawer.color = color
     }
 }
 
