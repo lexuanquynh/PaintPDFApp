@@ -70,11 +70,23 @@ class PDFDrawViewController: UIViewController, EditorColorPickerViewControllerDe
         })
         
         sender.style = .done
-        pdfDrawer.drawingTool = DrawingTool(rawValue: sender.tag)!
-        // load default size
-        sizeSlider.value = pdfDrawer.getWith()
-        // update to label
-        sizeLabel.text = "\(Int(sizeSlider.value))"
+        let drawingTool = DrawingTool(rawValue: sender.tag)!
+        // load default size if drawing tool is pen, pencil, highlighter
+        if drawingTool == .pen ||
+            drawingTool == .pencil ||
+            drawingTool == .highlighter ||
+            drawingTool == .icon ||
+            drawingTool == .eraser {
+            sizeSlider.value = pdfDrawer.getWith()
+            // update to label
+            sizeLabel.text = "\(Int(sizeSlider.value))"
+            pdfDrawer.drawingTool = drawingTool
+        } else if drawingTool == .undo {
+            pdfDrawer.undo()
+        } else if drawingTool == .redo {
+            pdfDrawer.redo()
+        }
+
     }
     
     @IBAction func onSizeChanged(_ sender: UISlider) {

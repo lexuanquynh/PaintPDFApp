@@ -24,7 +24,25 @@
 		C6B6DFB229D27A75008ABA6C /* UIBezierPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B6DFB129D27A75008ABA6C /* UIBezierPath+.swift */; };
 		C6B6DFB429D27AB3008ABA6C /* PDFPage+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B6DFB329D27AB3008ABA6C /* PDFPage+Selection.swift */; };
 		C6B6DFB629D27AC8008ABA6C /* PDFAnnotationWithPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B6DFB529D27AC8008ABA6C /* PDFAnnotationWithPath.swift */; };
+		C6B6DFB929D3BF63008ABA6C /* LazyPDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B6DFB829D3BF63008ABA6C /* LazyPDFKit.framework */; };
+		C6B6DFBA29D3BF63008ABA6C /* LazyPDFKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6B6DFB829D3BF63008ABA6C /* LazyPDFKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C6B6DFBF29D3BFB8008ABA6C /* LazyPaintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B6DFBD29D3BFB8008ABA6C /* LazyPaintViewController.swift */; };
+		C6B6DFC029D3BFB8008ABA6C /* LazyPaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B6DFBE29D3BFB8008ABA6C /* LazyPaintViewController.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C6B6DFBB29D3BF63008ABA6C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C6B6DFBA29D3BF63008ABA6C /* LazyPDFKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C660DF0529D17E3B00C63A1C /* EditorColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorColorPickerViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +64,9 @@
 		C6B6DFB129D27A75008ABA6C /* UIBezierPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+.swift"; sourceTree = "<group>"; };
 		C6B6DFB329D27AB3008ABA6C /* PDFPage+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFPage+Selection.swift"; sourceTree = "<group>"; };
 		C6B6DFB529D27AC8008ABA6C /* PDFAnnotationWithPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFAnnotationWithPath.swift; sourceTree = "<group>"; };
+		C6B6DFB829D3BF63008ABA6C /* LazyPDFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LazyPDFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B6DFBD29D3BFB8008ABA6C /* LazyPaintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyPaintViewController.swift; sourceTree = "<group>"; };
+		C6B6DFBE29D3BFB8008ABA6C /* LazyPaintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LazyPaintViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B6DFB929D3BF63008ABA6C /* LazyPDFKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +108,7 @@
 			children = (
 				C6AAA1C329D1376F00792D22 /* PaintPDFApp */,
 				C6AAA1C229D1376F00792D22 /* Products */,
+				C6B6DFB729D3BF63008ABA6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +123,7 @@
 		C6AAA1C329D1376F00792D22 /* PaintPDFApp */ = {
 			isa = PBXGroup;
 			children = (
+				C6B6DFBC29D3BF95008ABA6C /* LazyPaint */,
 				C660DF0729D1847900C63A1C /* Drawing */,
 				C660DF0429D17E2B00C63A1C /* Color Picker */,
 				C6AAA1DA29D1382800792D22 /* PDF Draw */,
@@ -124,6 +148,23 @@
 			path = "PDF Draw";
 			sourceTree = "<group>";
 		};
+		C6B6DFB729D3BF63008ABA6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C6B6DFB829D3BF63008ABA6C /* LazyPDFKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6B6DFBC29D3BF95008ABA6C /* LazyPaint */ = {
+			isa = PBXGroup;
+			children = (
+				C6B6DFBD29D3BFB8008ABA6C /* LazyPaintViewController.swift */,
+				C6B6DFBE29D3BFB8008ABA6C /* LazyPaintViewController.xib */,
+			);
+			path = LazyPaint;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,6 +175,7 @@
 				C6AAA1BD29D1376F00792D22 /* Sources */,
 				C6AAA1BE29D1376F00792D22 /* Frameworks */,
 				C6AAA1BF29D1376F00792D22 /* Resources */,
+				C6B6DFBB29D3BF63008ABA6C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,6 +229,7 @@
 				C6AAA1D929D1381D00792D22 /* pdfdemo.pdf in Resources */,
 				C6AAA1DE29D1384200792D22 /* PDFDrawViewController.xib in Resources */,
 				C6AAA1CC29D1376F00792D22 /* Main.storyboard in Resources */,
+				C6B6DFC029D3BFB8008ABA6C /* LazyPaintViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +242,7 @@
 			files = (
 				C6B6DFB629D27AC8008ABA6C /* PDFAnnotationWithPath.swift in Sources */,
 				C660DF0629D17E3B00C63A1C /* EditorColorPickerViewController.swift in Sources */,
+				C6B6DFBF29D3BFB8008ABA6C /* LazyPaintViewController.swift in Sources */,
 				C6B6DFAE29D27A0A008ABA6C /* DrawingAnnotation.swift in Sources */,
 				C6B6DFAC29D27989008ABA6C /* PDFDrawer.swift in Sources */,
 				C6B6DFB029D27A30008ABA6C /* DrawingGestureRecognizerDelegate.swift in Sources */,
@@ -354,7 +398,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PaintPDFApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -381,7 +425,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PaintPDFApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

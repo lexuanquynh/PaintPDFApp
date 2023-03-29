@@ -95,6 +95,15 @@ class PDFDrawer {
             return 0
         }
     }
+
+    // MARK: - Undo and Redo
+    func undo() {
+
+    }
+
+    func redo() {
+
+    }
 }
 
 extension PDFDrawer: DrawingGestureRecognizerDelegate {
@@ -117,7 +126,7 @@ extension PDFDrawer: DrawingGestureRecognizerDelegate {
         
         path?.addLine(to: convertedPoint)
         path?.move(to: convertedPoint)
-        drawAnnotation(onPage: page)
+        drawAnnotation(onPage: page)      
     }
     
     func gestureRecognizerEnded(_ location: CGPoint) {
@@ -145,22 +154,45 @@ extension PDFDrawer: DrawingGestureRecognizerDelegate {
     private func createAnnotation(path: UIBezierPath, page: PDFPage) -> DrawingAnnotation {
         let border = PDFBorder()
         border.lineWidth = drawingTool.width
-        
-        let annotation = DrawingAnnotation(bounds: page.bounds(for: pdfView.displayBox), forType: .ink, withProperties: nil)
-        annotation.color = color.withAlphaComponent(drawingTool.alpha)
-        annotation.border = border
-        return annotation
+        // check by path or image
+        if drawingTool == .icon {
+            let image = UIImage(named: "icon")
+            let annotation = DrawingAnnotation(image: image, forBounds: path.bounds, withProperties: nil)
+            annotation.color = color.withAlphaComponent(drawingTool.alpha)
+            annotation.border = border
+            return annotation
+        } else {
+            let annotation = DrawingAnnotation(bounds: path.bounds, forType: .ink, withProperties: nil)
+            annotation.color = color.withAlphaComponent(drawingTool.alpha)
+            annotation.border = border
+            return annotation
+        }
+
+//        let annotation = DrawingAnnotation(bounds: page.bounds(for: pdfView.displayBox), forType: .ink, withProperties: nil)
+//        annotation.color = color.withAlphaComponent(drawingTool.alpha)
+//        annotation.border = border
+//        return annotation
     }
     
     private func drawAnnotation(onPage: PDFPage) {
         guard let path = path else { return }
         
         if currentAnnotation == nil {
-            currentAnnotation = createAnnotation(path: path, page: onPage)
+            // check by path or image
+            if drawingTool == .icon {
+                currentAnnotation = createAnnotation(path: path, page: onPage)
+                currentAnnotation?.path = path
+                forceRedraw(annotation: currentAnnotation!, onPage: onPage)
+            } else {
+                currentAnnotation = createAnnotation(path: path, page: onPage)
+                currentAnnotation?.path = path
+                forceRedraw(annotation: currentAnnotation!, onPage: onPage)
+            }
+//            currentAnnotation = createAnnotation(path: path, page: onPage)
         }
         
-        currentAnnotation?.path = path
-        forceRedraw(annotation: currentAnnotation!, onPage: onPage)
+//        currentAnnotation?.path = path
+//        forceRedraw(annotation: currentAnnotation!, onPage: onPage)
     }
     
     private func createFinalAnnotation(path: UIBezierPath, page: PDFPage) -> PDFAnnotation {
